@@ -1,9 +1,12 @@
 package com.example.projectudemyintro
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -45,15 +48,20 @@ fun MyApp(){
 @Preview
 @Composable
 fun Circle(){
-    Card(modifier = Modifier
-        .padding(3.dp)
-        .size(45.dp),
+    Card(
+        modifier = Modifier
+            .padding(3.dp)
+            .size(105.dp)
+            .clickable {
+                Log.d("Tap", "Circle: Tap")
+            },
         shape = CircleShape,
-
-    ) {
+        elevation = 4.dp
+        ) {
         Box(contentAlignment = Alignment.Center) {
             Text(text = "TAP", modifier = Modifier)
         }
+
     }
 }
 
