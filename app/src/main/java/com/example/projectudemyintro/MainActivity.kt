@@ -39,6 +39,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(){
+    val moneyCounter = remember{
+        mutableStateOf(0)
+    }
 
     Surface(modifier = Modifier
         .fillMaxSize(),
@@ -48,7 +51,7 @@ fun MyApp(){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "$ 100", style = TextStyle(
+            Text(text = "$ ${moneyCounter.value}", style = TextStyle(
                 color = Color.White,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.ExtraBold
@@ -56,29 +59,29 @@ fun MyApp(){
             )
             Spacer(modifier = Modifier.height(30.dp))
 
-            CreateCircle()
+            CreateCircle(moneyCounter = moneyCounter.value){newValue->
+                moneyCounter.value = newValue
+            }
         }
     }
 }
 
-@Preview
+//@Preview
 @Composable
-fun CreateCircle(){
-    var moneyCounter by remember{
-        mutableStateOf(0)
-    }
+fun CreateCircle(moneyCounter: Int = 0, updatemoneyCounter: (Int)-> Unit){
+
+
     Card(modifier = Modifier
         .padding(3.dp)
         .size(105.dp)
         .clickable {
-            moneyCounter += 1
-            Log.d("Counter", "CreateCircle: $moneyCounter")
+        updatemoneyCounter(moneyCounter +1)
         },
         shape = CircleShape,
         elevation = 4.dp
     ) {
         Box(contentAlignment = Alignment.Center){
-            Text(text = "Tap $moneyCounter")
+            Text(text = "Tap ")
         }
     }
 }
